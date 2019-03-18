@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
       #BEFORE using a serializer:
-      #render json: @post.to_json(only: [:title, :description, :id],
+      render json: @post.to_json(only: [:title, :description, :id],
                               #  include: [author: { only: [:name]}])
        # AFTER USING OUR SERIALIZER
        render json: @post, status: 200
@@ -34,12 +34,10 @@ class PostsController < ApplicationController
   end
 
 private
-  # Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
     params.require(:post).permit(:title, :description)
   end
